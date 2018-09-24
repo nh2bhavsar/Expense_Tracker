@@ -38,10 +38,12 @@ def category_page(request,category):
 def new_category(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
+        user = request.user
         if form.is_valid():
             add_cat = form.save(commit=False)
             add_cat.user=(request.user).profile
             add_cat.save()
+            user.amount_spent=form.cleaned_data.get('amount_spent')
             return redirect('home')
     else:
         form = CategoryForm()
@@ -65,3 +67,15 @@ def new_expense(request):
     else:
         form = ExpenseForm((request.user).profile)
     return render(request, 'new_expense.html', {'form': form})
+
+def delete_expense(request,pk):
+    expense=Expense.objects.get(pk=pk)
+    category=expense.category
+    profile =request.user
+    category.amount_spent -= expense.amount
+    profile.profile.amount_spent -= expense.amount
+    category.save()
+    profile.profile.save()
+    expense.delete()
+    return redirect ('home')
+

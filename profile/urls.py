@@ -14,4 +14,5 @@ urlpatterns = [
     path('new_category/',core_views.new_category,name='new_category'),
     path('new_expense/',core_views.new_expense,name='new_expense'),
     path('logout/',core_views.home, name='logout'),
+    path('delete/<int:pk>/', core_views.delete_expense,name='delete_expense')
 ]
