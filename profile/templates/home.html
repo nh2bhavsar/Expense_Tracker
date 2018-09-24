@@ -16,16 +16,17 @@
   {% for category in profile.category_set.all %}
     <p><a href="{% url 'category_page' category %}">{{ category.category_name }}: </a>
     {% if category.user.amount_spent != 0%}
-    	{{category.amount_spent|mul:100 |intdiv:category.user.amount_spent}}</p>
+      {{category.amount_spent|mul:100 |intdiv:category.user.amount_spent}}</p>
     {% else %}
-    	0</p>
+      0</p>
     {%endif%}
   {% endfor %}
   <p><a href="/new_category/">Add Category</a></p>
  </br></br>
   <h2>Expenses</h2>
   {%for expense in user.expense_set.all%}
-	<p>{{ expense }} - ${{expense.amount}}
+  <p>{{ expense }} - ${{expense.amount}}</p>
+  <p><a href="{% url 'delete_expense' expense.pk %}">Delete</a></p>
   {% endfor %}
    <p><a href="/new_expense/">Add Expense</a></p>
 {% else %}
@@ -33,4 +34,3 @@
   <a href="{% url 'login' %}">login</a>
 {% endif %}
 {% endblock %}
-
