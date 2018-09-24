@@ -1,7 +1,0 @@
-<h1>{{ user.name }}</h1>
-<p><a href="{% url 'user:current_user' user.id %}/new/category">Add Category</a></p>
-<ul>
-{% for category in user.category_set.all %}
-    <li>{{ category.category_name }}</li>
-{% endfor %}
-</ul>

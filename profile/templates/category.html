@@ -1,0 +1,7 @@
+{% block content %}
+    <h1 align="center">{{category}}</h1>
+    <h2 align="center"> {{category.amount_spent}} / {{category.allocated_budget}}</h2>
+    {%for expense in category.expense_set.all%}
+    <p>{{expense.note}} - {{expense.amount}}</p>
+    {%endfor%}
+{% endblock %}
